@@ -54,10 +54,5 @@ python spring_vuln_scanner.py -f targets.txt
 ## 🛑 免责声明
 本工具仅供安全研究和授权测试使用。未经授权对系统进行漏洞扫描可能违反法律法规，使用者需自行承担相关法律责任。
 
-## 🔧 技术要求
-- Python 3.6+
-- requests库
-- argparse库
-
 ## 📜 许可证
 本工具仅供学习和研究使用，严禁用于非法用途。
