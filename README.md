@@ -17,7 +17,7 @@
 
 ### 💻 命令格式
 ```bash
-python spring_vuln_scanner.py [-u URL] [-f FILE]
+python SpringScan.py.py [-u URL] [-f FILE]
 ```
 
 ### 📝 参数说明
@@ -27,12 +27,12 @@ python spring_vuln_scanner.py [-u URL] [-f FILE]
 ### 🌟 使用示例
 单目标扫描：
 ```bash
-python spring_vuln_scanner.py -u http://example.com
+python SpringScan.py.py -u http://example.com
 ```
 
 批量扫描：
 ```bash
-python spring_vuln_scanner.py -f targets.txt
+python SpringScan.py.py -f targets.txt
 ```
 
 ## 🔄 工作流程
