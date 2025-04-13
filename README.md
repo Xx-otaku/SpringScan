@@ -1,58 +1,93 @@
-# 🔍 Spring框架漏洞扫描工具
+# Spring 框架漏洞检测工具 🛡️
 
-## ✨ 功能简介
-这是一款专门用于检测Spring框架常见安全漏洞的无害化扫描工具。该工具能够自动化检测多种Spring生态系统的高危漏洞。
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/)
 
-## 🛡️ 支持的漏洞检测
-本工具可以检测以下Spring框架相关漏洞：
-- 🔴 CVE-2016-4977 (Spring Security OAuth2 表达式注入)
-- 🔴 CVE-2017-8046 (Spring Data REST PATCH请求中的远程代码执行)
-- 🔴 CVE-2018-1270 (Spring Messaging STOMP代码执行)
-- 🔴 CVE-2022-22947 (Spring Cloud Gateway远程代码执行)
-- 🔴 CVE-2022-22965 (Spring Core远程代码执行，又名"Spring4Shell")
-- 🔴 CVE-2022-22978 (Spring认证绕过)
-- 🔴 H2数据库控制台未授权访问
+## 📝 简介
 
-## 🚀 使用方法
+这是一款针对 Spring 框架的安全漏洞检测工具，能够检测多种常见的 Spring 安全漏洞，支持单个 URL 检测和批量检测功能。
 
-### 💻 命令格式
-```bash
-python SpringScan.py.py [-u URL] [-f FILE]
+## ✨ 功能特点
+
+- 支持检测的漏洞:
+  - CVE-2016-4977 (Spring Security OAuth2 远程代码执行)
+  - CVE-2017-8046 (Spring Data REST 远程代码执行)
+  - CVE-2022-22978 (Spring Security 认证绕过)
+  - CVE-2022-22965 (Spring Core 远程代码执行，又称 "Spring4Shell")
+  - CVE-2022-22963 (Spring Cloud Function SpEL 注入)
+  - CVE-2018-1273 (Spring Data Commons 远程代码执行)
+  - H2 数据库控制台未授权访问检测
+
+- 支持单个 URL 检测和从文件批量导入目标进行检测
+- 支持 DNSLog 回连验证部分漏洞
+
+## 🔧 使用方法
+
+### 参数说明
+
+```
+usage: demo.py -u [URL] | -f [FILE PATH] -s [SERVER ADDR]
+
+这是spring的漏洞检测脚本
+
+optional arguments:
+  -h, --help            显示帮助信息并退出
+  -u URL, --url URL     单目标URL
+  -f FILE, --file FILE  批量测试文件路径
+  -s SERVER, --server SERVER
+                        请输入服务器地址，用于检测无回显RCE漏洞
 ```
 
-### 📝 参数说明
-- `-u, --url`：指定单个目标URL进行扫描
-- `-f, --file`：指定包含多个目标URL的文件路径（每行一个URL）
+### 单目标检测
 
-### 🌟 使用示例
-单目标扫描：
 ```bash
-python SpringScan.py.py -u http://example.com
+python demo.py -u example.com
 ```
 
-批量扫描：
+### 批量检测
+
 ```bash
-python SpringScan.py.py -f targets.txt
+python demo.py -f targets.txt
 ```
 
-## 🔄 工作流程
-1. 🔍 工具会对指定的目标执行一系列无害的探测请求
-2. 🧪 通过分析响应内容和行为判断是否存在漏洞
-3. 📊 输出扫描结果，标识检测到的漏洞
+### HTTP外带检测
 
-## 📋 输出说明
-- `[+]` 表示目标可能存在该漏洞
-- `[-]` 表示目标可能不存在该漏洞
-- `[!]` 表示测试过程中出现错误
+```bash
+python demo.py -u example.com -s your_server_addr
+```
 
-## ⚠️ 注意事项
-- 本工具仅进行**无害化探测**，不执行实际的漏洞利用
-- 请确保您有合法授权后再对目标系统进行扫描
-- 测试结果仅供参考，可能存在误报或漏报情况
-- 使用代理服务器时请注意网络延迟可能影响判断结果
+## 🔍 检测原理
 
-## 🛑 免责声明
-本工具仅供安全研究和授权测试使用。未经授权对系统进行漏洞扫描可能违反法律法规，使用者需自行承担相关法律责任。
+- **CVE-2016-4977**: 通过构造特殊的 OAuth 授权请求来检测表达式注入漏洞
+- **CVE-2017-8046**: 利用 JSON Patch 请求中的 SpEL 表达式注入
+- **CVE-2022-22978**: 尝试绕过 Spring Security 权限验证
+- **CVE-2022-22965**: 检测 Spring Core 中的远程代码执行漏洞
+- **CVE-2022-22963**: 测试 Spring Cloud Function 中的路由表达式注入
+- **CVE-2018-1273**: 检测 Spring Data Commons 中的表单绑定漏洞
+- **H2 Database**: 检测 H2 数据库控制台是否存在未授权访问问题
 
-## 📜 许可证
-本工具仅供学习和研究使用，严禁用于非法用途。
+## 📋 输出示例
+
+```
+*[开始扫描漏洞]*
+[*] 单目标扫描: example.com
+[+] http://example.com - Vulnerable to CVE_2016_4977
+[-] http://example.com - Not vulnerable to CVE_2017_8046
+[-] http://example.com - Not vulnerable to CVE_2022_22978
+[!] CVE-2022-22963：已向您的云服务器：your-dnslog.com发起请求，请关注日志结果
+[-] http://example.com - Not vulnerable to CVE_2022_22965
+[!] CVE-2018-1273：已向您的云服务器：your-dnslog.com发起请求，请关注日志结果
+[+] http://example.com - Vulnerable to H2 Database UNACC
+```
+
+## ⚠️ 免责声明
+
+此工具仅用于授权的安全测试和教育目的。使用此工具对未授权的系统进行测试可能违反法律法规。使用者需自行承担使用此工具的所有风险和后果。
+
+## 📄 许可证
+
+[MIT License](LICENSE)
+
+## 👥 贡献
+
+欢迎提交 Issue 或 Pull Request 来完善此工具。
