@@ -84,10 +84,3 @@ python demo.py -u example.com -s your_server_addr
 
 此工具仅用于授权的安全测试和教育目的。使用此工具对未授权的系统进行测试可能违反法律法规。使用者需自行承担使用此工具的所有风险和后果。
 
-## 📄 许可证
-
-[MIT License](LICENSE)
-
-## 👥 贡献
-
-欢迎提交 Issue 或 Pull Request 来完善此工具。
