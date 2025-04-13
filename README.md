@@ -41,13 +41,13 @@ optional arguments:
 ### 单目标检测
 
 ```bash
-python demo.py -u example.com
+python demo.py -u example.com -s your_server_addr
 ```
 
 ### 批量检测
 
 ```bash
-python demo.py -f targets.txt
+python demo.py -f targets.txt -s your_server_addr
 ```
 
 ### HTTP外带检测
