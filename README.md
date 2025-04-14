@@ -1,8 +1,5 @@
 # Spring 框架漏洞检测工具 🛡️
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/)
-
 ## 📝 简介
 
 这是一款针对 Spring 框架的安全漏洞检测工具，能够检测多种常见的 Spring 安全漏洞，支持单个 URL 检测和批量检测功能。
